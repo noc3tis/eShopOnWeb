@@ -31,7 +31,7 @@ jobs:
         run: dotnet test ./eShopOnWeb.sln --configuration Release
       - name: dotnet publish
         run: |
-          dotnet publish ./src/Web/Web.csproj -c Release -r win-x86 -o published-app
+          dotnet publish ./src/Web/Web.csproj -c Release -p:UseAppHost=false -o published-app
           cd published-app
           zip -r ../app.zip .
 
