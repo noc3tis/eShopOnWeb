@@ -32,12 +32,15 @@ jobs:
       - name: dotnet publish
         run: |
           dotnet publish ./src/Web/Web.csproj -c Release -r win-x64 -o published-app
+          cd published-app
+          zip -r ../app.zip .
+
       # upload the published website code artifacts
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v5
         with:
           name: .net-app
-          path: published-app
+          path: app.zip
 
       # upload the bicep template as artifacts for next job
       - name: Upload artifact for deployment job
