@@ -31,15 +31,13 @@ jobs:
         run: dotnet test ./eShopOnWeb.sln --configuration Release
       - name: dotnet publish
         run: |
-          dotnet publish ./src/Web/Web.csproj -c Release -o ${{env.DOTNET_ROOT}}/myapp
-          cd ${{env.DOTNET_ROOT}}/myapp
-          zip -r ../app.zip .
+          dotnet publish ./src/Web/Web.csproj -c Release -o published-app
       # upload the published website code artifacts
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v5
         with:
           name: .net-app
-          path: ${{env.DOTNET_ROOT}}/app.zip
+          path: published-app
 
       # upload the bicep template as artifacts for next job
       - name: Upload artifact for deployment job
