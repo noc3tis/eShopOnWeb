@@ -9,7 +9,7 @@ env:
   LOCATION: southcentralus
   TEMPLATE-FILE: infra/webapp.bicep
   SUBSCRIPTION-ID: a8503a1a-b054-4c73-bc6b-4894936ad72b
-  WEBAPP-NAME: devops-webapp-southcentralus-2075310075
+  WEBAPP-NAME: LabLearn
 
 jobs:
   #Build, test and publish .net web project in repository
@@ -75,15 +75,13 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      # Deploy Azure WebApp using Bicep file
-      - name: deploy
-        uses: azure/arm-deploy@v2
-        with:
-          subscriptionId: ${{ env.SUBSCRIPTION-ID }}
-          resourceGroupName: ${{ env.RESOURCE-GROUP }}
-          template: bicep-template/webapp.bicep
-          parameters: "webAppName=${{ env.WEBAPP-NAME }} location=${{ env.LOCATION }}"
-          failOnStdErr: false
+      # - name: Deploy ARM Template
+#   uses: azure/arm-deploy@v2
+#   with:
+#     subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+#     resourceGroupName: ${{ env.RESOURCE-GROUP }}
+#     template: ${{ env.TEMPLATE-FILE }}
+#     parameters: "webAppName=${{ env.WEBAPP-NAME }} location=${{ env.LOCATION }}"
 
       # Publish website to Azure App Service (WebApp)
       # Step disabled due to issue where the site sometimes can't be found: https://github.com/microsoft/pipelines-appservice-lib/issues/56. Instead deploy using CLI
